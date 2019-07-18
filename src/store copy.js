@@ -11,9 +11,10 @@ export default new Vuex.Store({
     //文本输入框中的值
     inputValue: 'AAA',
     //下一个id
-    nextId:5,
+    nextId: 5,
+
     //保存默认的选项卡值
-    viewKey:'all'
+    viewKey: 'all'
   },
   mutations: {
     //初始化列表数据
@@ -21,15 +22,15 @@ export default new Vuex.Store({
       state.list = list
     },
     //设置文本框的值
-    setInputValue(state,value){
+    setInputValue(state, value) {
       state.inputValue = value
     },
     //添加列表项
-    addItem(state){
+    addItem(state) {
       const obj = {
-        id :state.nextId,
+        id: state.nextId,
         info: state.inputValue.trim(),
-        done:false
+        done: false
       }
       //将创建好的事项添加到数组list中
       state.list.push(obj)
@@ -37,20 +38,20 @@ export default new Vuex.Store({
       state.nextId++
       state.inputValue = ''
     },
-    removeItem(state,id){
+    removeItem(state, id) {
       //根据id删除事项数据
-      const index = state.list.findIndex( x => x.id === id )
+      const index = state.list.findIndex(x => x.id === id)
       // console.log(index);
-      if(index != -1) state.list.splice(index,1);
+      if (index != -1) state.list.splice(index, 1);
     },
-    changeStatus(state,param){
-      const index = state.list.findIndex( x => x.id === param.id )
-      if(index != -1) state.list[index].done = param.status
+    changeStatus(state, param) {
+      const index = state.list.findIndex(x => x.id === param.id)
+      if (index != -1) state.list[index].done = param.status
     },
-    cleanDone(state){
-      state.list = state.list.filter( x => x.done === false )
+    cleanDone(state) {
+      state.list = state.list.filter(x => x.done === false)
     },
-    changeKey(state,key){
+    changeKey(state, key) {
       state.viewKey = key
     }
   },
@@ -62,21 +63,21 @@ export default new Vuex.Store({
       })
     }
   },
-  getters:{
-    unDoneLength(state){
-      const temp = state.list.filter( x => x.done === false )
+  getters: {
+    unDoneLength(state) {
+      const temp = state.list.filter(x => x.done === false)
       // console.log(temp)
       return temp.length
     },
-    infoList(state){
-      if(state.viewKey === 'all'){
+    infoList(state) {
+      if (state.viewKey === 'all') {
         return state.list
       }
-      if(state.viewKey === 'undone'){
-        return state.list.filter( x => x.done === false )
+      if (state.viewKey === 'undone') {
+        return state.list.filter(x => x.done === false)
       }
-      if(state.viewKey === 'done'){
-        return state.list.filter( x => x.done === true )
+      if (state.viewKey === 'done') {
+        return state.list.filter(x => x.done === true)
       }
     }
   }

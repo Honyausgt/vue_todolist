@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <a-input :value="addContent" @change="iptValueChange" placeholder="请输入任务" class="my_ipt" />
-    <a-button type="primary" @click="addItemBtn">添加事项</a-button>
+    <a-input placeholder="请输入任务" class="my_ipt" />
+    <a-button type="primary">添加事项</a-button>
 
     <a-list bordered :dataSource="list" class="dt_list">
       <a-list-item slot="renderItem" slot-scope="item">
         <!-- 复选框 -->
-        <a-checkbox :checked="item.done">{{item.info}}</a-checkbox>
+        <a-checkbox>{{item.info}}</a-checkbox>
         <!-- 删除链接 -->
         <a slot="actions">删除</a>
       </a-list-item>
@@ -29,32 +29,26 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-
 export default {
   name: 'app',
   data() {
-    return {}
-  },
-  created() {
-    this.$store.dispatch('getList')
-  },
-  methods: {
-    addItemBtn() {
-      this.$store.commit('addItem')
-    },
-
-    // 输入框的值发生变化时
-    iptValueChange(e) {
-      console.log(e.target.value)
-      // 触发mutation将输入框的值传递过去
-      // 注：此处通过事件对象获取输入框的值
-      this.$store.commit('iptValue', e.target.value)
+    return {
+      list: [
+        {
+          id: 0,
+          info: 'Racing car sprays burning fuel into crowd.',
+          done: false
+        },
+        { id: 1, info: 'Japanese princess to wed commoner.', done: false },
+        {
+          id: 2,
+          info: 'Australian walks 100km after outback crash.',
+          done: false
+        },
+        { id: 3, info: 'Man charged over missing wedding girl.', done: false },
+        { id: 4, info: 'Los Angeles battles huge wildfires.', done: false }
+      ]
     }
-  },
-
-  computed: {
-    ...mapState(['list', 'addContent'])
   }
 }
 </script>
